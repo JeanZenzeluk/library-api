@@ -13,7 +13,7 @@ public interface BookService {
 
     Optional<Book> getById(Long id);
 
-    void delete(Book book);
+    void delete(Book book)throws IllegalArgumentException;
 
     Book update(Book map);
 }
