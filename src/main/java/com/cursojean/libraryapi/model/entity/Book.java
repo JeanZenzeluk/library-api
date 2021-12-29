@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Builder
@@ -29,5 +30,8 @@ public class Book {
 
     @Column
     private String isbn;
+
+    @OneToMany( mappedBy = "book", fetch = FetchType.LAZY )
+    private List<Loan> loans;
 
 }
