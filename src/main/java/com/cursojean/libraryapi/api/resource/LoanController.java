@@ -9,6 +9,8 @@ import com.cursojean.libraryapi.model.entity.Book;
 import com.cursojean.libraryapi.model.entity.Loan;
 import com.cursojean.libraryapi.service.BookService;
 import com.cursojean.libraryapi.service.LoanService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/loans")
 @RequiredArgsConstructor
+@Api("Loan API")
 public class LoanController {
 
     private final LoanService service;
@@ -34,6 +37,7 @@ public class LoanController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Creates a loan ")
     public Long create(@RequestBody LoanDTO dto){
 
         Book book = bookService.getBookByIsbn(dto.getIsbn())
@@ -49,6 +53,7 @@ public class LoanController {
     }
 
     @PatchMapping("{id}")
+    @ApiOperation("Obtains a loan by id")
     public void returnBook(
             @PathVariable Long id,
             @RequestBody ReturnedLoadDTO dto){
@@ -58,6 +63,7 @@ public class LoanController {
     }
 
     @GetMapping
+    @ApiOperation("Find loans by params")
     public Page<LoanDTO> find(LoanFilterDTO dto, Pageable pageRequest){
         Page<Loan> result = service.find(dto, pageRequest);
 //        return null;
